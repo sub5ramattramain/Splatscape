@@ -6,8 +6,8 @@ import { Droplets, Flame, Activity, Wifi, EyeOff, Eye, UserPlus, Thermometer, Se
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 import * as THREE from 'three'
 
-// 🚨 UPDATE THIS IP TO MATCH YOUR ESP32 SERIAL MONITOR! 🚨
-const ESP32_URL = 'http://10.203.171.68/data'; 
+// UPDATE THIS IP TO MATCH YOUR ESP32 SERIAL MONITOR
+const ESP32_URL = ''; 
 
 // --- 2. SPLATSCAPE CONFIGURATION ---
 const FLOOR_LEVEL = -1; 
@@ -39,7 +39,7 @@ const ProceduralHumanoid = ({ id, startPos, activeTemp, gasLevel, onDespawn }) =
   else if (activeTemp >= 28) targetColor = '#ef4444' 
 
   // PANIC MODE LOGIC
-  const isPanic = gasLevel > 1500; // Trigger sprint if gas is high!
+  const isPanic = gasLevel > 1500; // Trigger sprint if gas is high
 
   useFrame(({ clock }, delta) => {
     if (!groupRef.current || !materialRef.current) return;
@@ -71,7 +71,7 @@ const ProceduralHumanoid = ({ id, startPos, activeTemp, gasLevel, onDespawn }) =
       groupRef.current.rotation.y = Math.atan2(dx, dz);
     }
 
-    // Flail arms faster during Panic Mode!
+    // Flail arms faster during Panic Mode
     const walkCycle = speed > 0 ? Math.sin(clock.getElapsedTime() * (isPanic ? 15 : 8)) : 0; 
     if (leftLegRef.current) leftLegRef.current.rotation.x = walkCycle * 0.5;
     if (rightLegRef.current) rightLegRef.current.rotation.x = -walkCycle * 0.5;
@@ -144,8 +144,8 @@ export default function App() {
   
   const [visitors, setVisitors] = useState([])
   const isTripped = useRef(false)
-  const lastSpawnTime = useRef(0) // <-- NEW: Tracks the exact millisecond of the last spawn
-  const SPAWN_COOLDOWN = 500 // <-- NEW: 500ms cooldown limit
+  const lastSpawnTime = useRef(0) // Tracks the exact millisecond of the last spawn
+  const SPAWN_COOLDOWN = 500 // 500ms cooldown limit
   const [tempOverride, setTempOverride] = useState(null); 
   const overrideRef = useRef(null); 
 

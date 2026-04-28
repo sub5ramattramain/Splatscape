@@ -14,8 +14,8 @@
 #include "esp_timer.h"
 #include "rom/ets_sys.h" 
 
-#define WIFI_SSID      "Mi MIX 2S"
-#define WIFI_PASS      "7481D986"
+#define WIFI_SSID      ""
+#define WIFI_PASS      ""
 
 #define MQ3_ADC_CHAN   ADC_CHANNEL_2 
 #define TRIG_PIN       GPIO_NUM_18
@@ -201,7 +201,7 @@ void wifi_init_sta(void) {
 
 // --- 6. MAIN LOOP ---
 void app_main(void) {
-    // 🚨 The CDC Delay: Wait 5 seconds so the Serial Monitor connects before we print!
+    // The CDC Delay: Wait 5 seconds so the Serial Monitor connects before we print
     vTaskDelay(pdMS_TO_TICKS(5000));
     ESP_LOGI(TAG, "Booting Splatscape Node...");
 
@@ -215,7 +215,7 @@ void app_main(void) {
     init_sensors();
     wifi_init_sta();
 
-    // 🚨 Bug Fix: Increased stack from 2048 to 4096 to prevent memory crashes!
+    // Bug Fix: Increased stack from 2048 to 4096 to prevent memory crashes
     xTaskCreate(&dht_task, "dht_task", 4096, NULL, 5, NULL);
     xTaskCreate(&fast_sensor_task, "fast_sensor", 4096, NULL, 5, NULL);
 
@@ -223,7 +223,7 @@ void app_main(void) {
     if (bits & WIFI_CONNECTED_BIT) {
         start_webserver();
         
-        // Keep the main thread alive just in case!
+        // Keep the main thread alive just in case
         while(1) {
             vTaskDelay(pdMS_TO_TICKS(5000));
         }
